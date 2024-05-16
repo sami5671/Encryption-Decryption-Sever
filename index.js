@@ -31,6 +31,9 @@ async function run() {
   try {
     //  =========================All Collection========================================
     const usersCollection = client.db("NSC").collection("users");
+    const encryptedDataCollection = client
+      .db("NSC")
+      .collection("encryptedMessage");
     // ==================================user api===============================================================
     // Save or modify user email, status in DB
     app.put("/users/:email", async (req, res) => {
@@ -61,6 +64,14 @@ async function run() {
         },
         options
       );
+      res.send(result);
+    });
+
+    // =================================================================
+
+    app.post("/encryptedData", async (req, res) => {
+      const encryptedData = req.body;
+      const result = await encryptedDataCollection.insertOne(encryptedData);
       res.send(result);
     });
     // =================================================================================================
