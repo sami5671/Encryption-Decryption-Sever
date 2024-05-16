@@ -74,6 +74,10 @@ async function run() {
       const result = await encryptedDataCollection.insertOne(encryptedData);
       res.send(result);
     });
+    app.get("/encryptedData", async (req, res) => {
+      const result = await encryptedDataCollection.find().toArray();
+      res.send(result);
+    });
     // =================================================================================================
 
     await client.db("admin").command({ ping: 1 });
